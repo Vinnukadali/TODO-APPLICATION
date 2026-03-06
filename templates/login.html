@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo App Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Linking External CSS -->
+    <link rel="stylesheet" href="/static/css/login.css">
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>📝 Todo App Login</h2>
+
+        {% if error %}
+             <div class="error-message" style="color: red; margin-bottom: 15px; padding: 10px; background: #ffe6e6; border-radius: 5px;">
+                {{ error }}
+            </div>
+        {% endif %}
+        <form method="POST">
+            {% csrf_token %}
+            <div class="input-group">
+                <label>Username</label>
+                <input name="username" type="text" placeholder="Enter your username" required>
+            </div>
+
+            <div class="input-group">
+                <label>Password</label>
+                <input name="password" type="password" placeholder="Enter your password" required>
+            </div>
+
+            <button name="submit" class="btn">Login</button>
+        </form>
+
+        <div class="footer-text">
+            Don't have an account? <a name = "" href="{% url 'signup'%}">Register</a>
+        </div>
+    </div>
+
+</body>
+</html>

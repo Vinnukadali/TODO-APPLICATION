@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <style>
+        /* General Reset */
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+        }
+
+        /* Container Styling */
+        .todo-container {
+            background: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Input Section */
+        .todo-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 1.5rem;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input[type="text"]:focus {
+            border-color: #667eea;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        button:hover {
+            background-color: #5a6fd6;
+        }
+
+        /* Task List */
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+
+        li {
+            background: #f9f9f9;
+            margin-bottom: 8px;
+            padding: 10px;
+            border-radius: 6px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 4px solid #764ba2;
+        }
+
+        /* Logout Button */
+        .logout-btn {
+            background-color: #5a6fd6;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .logout-btn:hover {
+            background-color: #5a6fd6;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="todo-container">
+        <h2>📝 My Todo List</h2>
+
+        <form method="POST" action="" class="todo-input">
+            {% csrf_token %}
+            <input type="text" name="task_title" id="taskInput" placeholder="Enter new task..." required>
+            <button type="submit">Add</button>
+        </form>
+
+        <ul id="taskList">
+            {% for task in res %}
+                <li>
+                    {{ task.title }}
+                    <a href="{% url 'delete' task.pk %}" style="color:#764ba2; text-decoration:none;">&times;</a>
+                </li>
+            {% empty %}
+                <li>No tasks yet. Add one above!</li>
+            {% endfor %}
+        </ul>
+
+        <form action="{% url 'logout' %}" method="POST" style="margin-top:20px;">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+    </div>
+
+    <!-- remove client-side addTask logic since server handles it -->
+
+</body>
+</html>
